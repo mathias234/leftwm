@@ -267,13 +267,74 @@ pub fn process(manager: &mut Manager, command: Command, val: Option<String>) -> 
             true
         }
 
+        Command::IncreaseMainWidth => {
+            let current = manager.focused_workspace();
+            if current.is_none() {
+                return false;
+            }
+            let current = current.unwrap();
+
+            let mut index = match manager
+                .workspaces
+                .iter()
+                .enumerate()
+                .find(|&x| x.1 == current)
+            {
+                Some(x) => x.0 as i32,
+                None => {
+                    return false;
+                }
+            };
+            index -= 1;
+            if index < 0 {
+                index = (manager.workspaces.len() as i32) - 1;
+            }
+
+            let mut workspace = manager.workspaces[index as usize].clone();
+            
+            workspace.update_main_width(5);
+            
+            manager.workspaces[index as usize] = workspace;
+            true
+        }
+
+        Command::DecreaseMainWidth => {
+            let current = manager.focused_workspace();
+            if current.is_none() {
+                return false;
+            }
+            let current = current.unwrap();
+
+            let mut index = match manager
+                .workspaces
+                .iter()
+                .enumerate()
+                .find(|&x| x.1 == current)
+            {
+                Some(x) => x.0 as i32,
+                None => {
+                    return false;
+                }
+            };
+            index -= 1;
+            if index < 0 {
+                index = (manager.workspaces.len() as i32) - 1;
+            }
+
+            let mut workspace = manager.workspaces[index as usize].clone();
+            
+            workspace.update_main_width(-5);
+            
+            manager.workspaces[index as usize] = workspace;
+            true
+        }
+
         Command::MouseMoveWindow => false,
 
         Command::SoftReload => {
             manager.soft_reload();
             false
-
-        },
+        }
         Command::HardReload => {
             manager.hard_reload();
             false

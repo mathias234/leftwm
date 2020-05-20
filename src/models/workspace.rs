@@ -15,6 +15,7 @@ pub struct Workspace {
     pub tags: Vec<String>,
     pub avoid: Vec<XYHW>,
     pub xyhw: XYHW,
+    pub main_width: i32, 
     xyhw_avoided: XYHW,
 }
 
@@ -61,6 +62,7 @@ impl Workspace {
                 ..Default::default()
             }
             .into(),
+            main_width: 0,
         }
     }
 
@@ -147,6 +149,10 @@ impl Workspace {
             xyhw = xyhw.without(a);
         }
         self.xyhw_avoided = xyhw;
+    }
+
+    pub fn update_main_width(&mut self, value: i32) {
+        self.main_width += value;
     }
 }
 

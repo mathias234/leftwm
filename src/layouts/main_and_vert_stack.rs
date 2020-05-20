@@ -19,7 +19,7 @@ pub fn update(workspace: &Workspace, windows: &mut Vec<&mut &mut Window>) {
     {
         if let Some(first) = iter.next() {
             first.set_height(workspace.height());
-            first.set_width(width);
+            first.set_width(width + workspace.main_width);
             first.set_x(workspace.x());
             first.set_y(workspace.y());
         }
@@ -31,8 +31,8 @@ pub fn update(workspace: &Workspace, windows: &mut Vec<&mut &mut Window>) {
     let mut y = 0;
     for w in iter {
         w.set_height(height);
-        w.set_width(width);
-        w.set_x(workspace.x() + width);
+        w.set_width(width - workspace.main_width);
+        w.set_x(workspace.x() + width + workspace.main_width);
         w.set_y(workspace.y() + y);
         y += height;
     }

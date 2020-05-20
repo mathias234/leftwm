@@ -206,6 +206,18 @@ impl Default for Config {
                 key: "Down".to_owned(),
             },
             Keybind {
+                command: Command::IncreaseMainWidth,
+                value: None,
+                modifier: vec!["modkey".to_owned()],
+                key: "l".to_owned(),
+            },
+            Keybind {
+                command: Command::DecreaseMainWidth,
+                value: None,
+                modifier: vec!["modkey".to_owned()],
+                key: "h".to_owned(),
+            },
+            Keybind {
                 command: Command::FocusWorkspaceNext,
                 value: None,
                 modifier: vec!["modkey".to_owned()],
