@@ -15,7 +15,7 @@ pub struct Workspace {
     pub tags: Vec<String>,
     pub avoid: Vec<XYHW>,
     pub xyhw: XYHW,
-    pub main_width: i32, 
+    pub main_width: i32,
     xyhw_avoided: XYHW,
 }
 

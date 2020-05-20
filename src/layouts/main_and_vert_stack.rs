@@ -14,12 +14,17 @@ pub fn update(workspace: &Workspace, windows: &mut Vec<&mut &mut Window>) {
         _ => (workspace.width() as f32 / 2.0).floor() as i32,
     };
 
+    let main_width = match window_count {
+        1 => 0,
+        _ => workspace.main_width,
+    }; 
+
     //build build the main window.
     let mut iter = windows.iter_mut();
     {
         if let Some(first) = iter.next() {
             first.set_height(workspace.height());
-            first.set_width(width + workspace.main_width);
+            first.set_width(width + main_width);
             first.set_x(workspace.x());
             first.set_y(workspace.y());
         }
@@ -31,8 +36,8 @@ pub fn update(workspace: &Workspace, windows: &mut Vec<&mut &mut Window>) {
     let mut y = 0;
     for w in iter {
         w.set_height(height);
-        w.set_width(width - workspace.main_width);
-        w.set_x(workspace.x() + width + workspace.main_width);
+        w.set_width(width - main_width);
+        w.set_x(workspace.x() + width + main_width);
         w.set_y(workspace.y() + y);
         y += height;
     }
