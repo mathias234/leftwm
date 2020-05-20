@@ -272,29 +272,12 @@ pub fn process(manager: &mut Manager, command: Command, val: Option<String>) -> 
             if current.is_none() {
                 return false;
             }
-            let current = current.unwrap();
-
-            let mut index = match manager
-                .workspaces
-                .iter()
-                .enumerate()
-                .find(|&x| x.1 == current)
-            {
-                Some(x) => x.0 as i32,
-                None => {
-                    return false;
-                }
-            };
-            index -= 1;
-            if index < 0 {
-                index = (manager.workspaces.len() as i32) - 1;
-            }
-
-            let mut workspace = manager.workspaces[index as usize].clone();
+            let id = manager.focused_workspace().unwrap().id;
+            let mut workspace = manager.workspaces[id as usize].clone();
             
-            workspace.update_main_width(5);
+            workspace.update_main_width(15);
             
-            manager.workspaces[index as usize] = workspace;
+            manager.workspaces[id as usize] = workspace;
             true
         }
 
@@ -323,7 +306,7 @@ pub fn process(manager: &mut Manager, command: Command, val: Option<String>) -> 
 
             let mut workspace = manager.workspaces[index as usize].clone();
             
-            workspace.update_main_width(-5);
+            workspace.update_main_width(-15);
             
             manager.workspaces[index as usize] = workspace;
             true
